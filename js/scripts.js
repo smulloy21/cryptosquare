@@ -1,7 +1,6 @@
 var codeMessage = function(string) {
   var str = string.toLowerCase().replace(/[^\w]+/g, '');
   var columns = Math.ceil(Math.sqrt(str.length));
-  var rows = Math.floor(Math.sqrt(str.length));
   var arr = str.split('');
   var newarr = []
   for(var i = 0; i < columns; i++) {
@@ -16,14 +15,38 @@ var decodeMessage = function(string) {
   var str = string.replace(/[^\w]+/g, '');
   var columns = Math.ceil(Math.sqrt(str.length));
   var rows = Math.floor(Math.sqrt(str.length));
+  var leftOvers = 0;
+  var newRows = rows;
+  if (columns !== rows) {
+    newRows -= 1
+    leftOvers = str.length - (newRows * newRows);
+    if (leftOvers > columns) {
+      columns += 1;
+      leftOvers -= columns;
+    }
+    debugger
+  }
   var arr = str.split('');
-  var newarr = []
-  for(var i = 0; i < rows; i++) {
-    for(var j = 0; j < rows; j++){
-      newarr.push(arr[i + j*rows]);
+  var newarr = [];
+  var row = [];
+  for(var i = 0; i < columns; i++) {
+    row = [];
+    for(var j = 0; j < newRows; j++) {
+      row.push(arr.shift());
+    }
+    if (leftOvers > 0) {
+      row.push(arr.shift());
+      leftOvers--;
+    }
+    newarr.push(row.join(''));
+  }
+
+  for(var x = 0; x < rows; x++) {
+    for(var y = 0; y < columns; y++) {
+      arr.push(newarr[y].charAt(x));
     }
   }
-  return newarr.join('');
+  return arr.join('');
 };
 
 $(document).ready(function(){

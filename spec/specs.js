@@ -26,14 +26,14 @@ describe('decodeMessage', function(){
   });
 
   it('should make and translate a message into the nearest square', function(){
-    expect(codeMessage("ecupo sid")).to.equal("epicodus");
+    expect(decodeMessage("ecupo sid")).to.equal("epicodus");
   });
 
   it('should make and translate a message into the nearest square', function(){
     expect(decodeMessage("edamp uweis eciso so")).to.equal("epicodusisawesome");
   });
 
-  // it('should encode super long messages', function(){
-  //   expect(decodeMessage("itvin nhisa eoaro ustbs i")).to.equal("inarttheobviousisasin");
-  // });
+  it('should encode super long messages', function(){
+    expect(decodeMessage("itvin nhisa eoaro ustbs i")).to.equal("inarttheobviousisasin");
+  });
 });
